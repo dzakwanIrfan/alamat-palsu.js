@@ -3,7 +3,7 @@
     <a href="/address">&laquo; Back to Address Page</a>
 <% } else { %>
 <h2>Detail Contact</h2>
-<a href="/address">Back to Address Page</a><br><br>
+<a href="/address">&laquo; Back to Address Page</a><br><br>
 <table>
     <tr>
         <td>Full Name</td>
@@ -27,3 +27,4 @@
     </tr>
 </table>
 <% } %>
+<br><a href="/address/edit/<%= address.name %>">Edit</a> | <a href="/address/delete/<%= address.name %>" onclick="return confirm('Are you sure?')">Delete address</a>

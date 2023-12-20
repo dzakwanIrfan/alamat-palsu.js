@@ -47,6 +47,26 @@ const addAddress = (address) => {
 const cekDuplikat = (name) => {
     const addresses = loadAddress();
     return addresses.find((address) => address.name === name);
+};
+
+// hapus address
+const deleteAddress = (name) => {
+    const addresses = loadAddress();
+    const filteredAddresses = addresses.filter(
+        (address) => address.name !== name
+    );
+    saveAddress(filteredAddresses);
+};
+
+// mengubah address
+const updateAddresses = (newAddress) => {
+    const addresses = loadAddress();
+    // hilangkan address lama yang namanya sama dengan oldName
+    const filteredAddresses = addresses.filter((address) => address.name !== newAddress.oldName);
+    delete newAddress.oldName;
+    filteredAddresses.push(newAddress);
+    saveAddress(filteredAddresses);
 }
 
-module.exports = { loadAddress, findAddress, addAddress, cekDuplikat };
+
+module.exports = { loadAddress, findAddress, addAddress, cekDuplikat, deleteAddress, updateAddresses };

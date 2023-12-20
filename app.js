@@ -1,6 +1,6 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-const { loadAddress, findAddress, addAddress, cekDuplikat } = require('./utils/address');
+const { loadAddress, findAddress, addAddress, cekDuplikat, deleteAddress, updateAddresses } = require('./utils/address');
 const { body, validationResult, check } = require('express-validator');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -71,7 +71,7 @@ app.get('/address', (req, res) => {
 // halaman form tambah data address
 app.get('/address/add', (req, res) => {
   res.render('add-address', {
-    judul: 'Add Address Data',
+    judul: 'Add Address Data Page',
     layout: 'layouts/main',
   });
 });
@@ -94,13 +94,66 @@ app.post(
   if(!errors.isEmpty()){
     // return res.status(400).json({errors: errors.array()});
     res.render('add-address', {
-      judul: 'Add Addresse Data',
+      judul: 'Add Address Data Page',
       layout: 'layouts/main',
       errors: errors.array(),
     })
   }else{
-    req.flash('msg', 'Address data added successfully!')
     addAddress(req.body);
+    req.flash('msg', 'Address data added successfully!');
+    res.redirect('/address');
+  }
+});
+
+// proses delete address
+app.get('/address/delete/:name', (req, res) => {
+  const address = findAddress(req.params.name);
+
+  // jika address tidak ada
+  if(!address){
+    res.status(404);
+    res.send('<h1>404</h1>');
+  }else{
+    deleteAddress(req.params.name);
+    req.flash('msg', 'Address data deleted successfully!');
+    res.redirect('/address');
+  }
+});
+
+// halaman form ubah data address
+app.get('/address/edit/:name', (req, res) => {
+  const address = findAddress(req.params.name);
+  res.render('edit-address', {
+    judul: 'Edit Address Data Page',
+    layout: 'layouts/main',
+    address,
+  });
+});
+
+// proses ubah data
+app.post(
+  '/address/update',
+  body('name').custom((value, { req }) => {
+    const duplikat = cekDuplikat(value);
+    if(value !== req.body.oldName && duplikat){
+      throw new Error('Name is already registered!');
+    };
+    return true;
+  }), 
+  check('email', 'Invalid email value').isEmail(), 
+  check('phone', 'Invalid phone number value').isMobilePhone('id-ID'),
+  (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    res.render('edit-address', {
+      judul: 'Edit Address Data Page',
+      layout: 'layouts/main',
+      errors: errors.array(),
+      address: req.body,
+    })
+  }else{
+    updateAddresses(req.body);
+    req.flash('msg', 'Address data changed successfully!');
     res.redirect('/address');
   }
 });
