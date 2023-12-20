@@ -1,5 +1,11 @@
 <h2>Address List</h2>
 
+<a href="/address/add">Add Address Data</a><br><br>
+
+<% if (msg.length != 0) { %>
+    <p style="background-color: blue; color: white; padding: 0,5rem 1rem;"><%= msg %></p>
+<% } %>
+
 <table border="1">
     <tr>
         <th>#</th>

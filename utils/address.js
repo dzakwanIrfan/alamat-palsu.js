@@ -1,4 +1,5 @@
 const fs = require('fs');
+const validator = require('validator');
 
 //buat folder data kalau belum ada
 const dirPath = './data';
@@ -30,4 +31,22 @@ const findAddress = (name) => {
     return address;
 };
 
-module.exports = { loadAddress, findAddress };
+// menuliskan/menimpa file address.json dengan data baru
+const saveAddress = (addresses) => {
+    fs.writeFileSync('data/address.json', JSON.stringify(addresses));
+};
+
+// menambahkan data address baru
+const addAddress = (address) => {
+    const addresses = loadAddress();
+    addresses.push(address);
+    saveAddress(addresses);
+};
+
+// cek nama yang duplikat
+const cekDuplikat = (name) => {
+    const addresses = loadAddress();
+    return addresses.find((address) => address.name === name);
+}
+
+module.exports = { loadAddress, findAddress, addAddress, cekDuplikat };
