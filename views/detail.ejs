@@ -1,0 +1,29 @@
+<% if (!address) { %>
+    <b>Address data is unavailable!</b><br>
+    <a href="/address">&laquo; Back to Address Page</a>
+<% } else { %>
+<h2>Detail Contact</h2>
+<a href="/address">Back to Address Page</a><br><br>
+<table>
+    <tr>
+        <td>Full Name</td>
+        <td>:</td>
+        <td><%= address.name %></td>
+    </tr>
+    <tr>
+        <td>Phone Number</td>
+        <td>:</td>
+        <td><%= address.phone %></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>:</td>
+        <td><%= address.email %></td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>:</td>
+        <td><%= address.address %></td>
+    </tr>
+</table>
+<% } %>

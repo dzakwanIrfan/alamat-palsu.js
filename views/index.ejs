@@ -1,0 +1,14 @@
+
+    <h1>Ini adalah halaman buatan <%= nama %></h1>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi nam minima repellat, fugit laboriosam culpa nesciunt eos et delectus aliquam facilis vitae debitis! Labore reiciendis iusto sapiente odio ipsam molestiae.</p>
+
+    <h4>Daftar Mahasiswa</h4>
+    <% if (mahasiswa.length < 1) { %>
+        <p>Data mahasiswa masih kosong</p>
+    <% } %>
+    <% mahasiswa.forEach(mhs => { %>
+        <ul>
+            <li>Nama: <%= mhs.nama %></li>
+            <li>Email: <%= mhs.email %></li>
+        </ul>
+    <% }) %>

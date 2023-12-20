@@ -1,0 +1,24 @@
+<h2>Address List</h2>
+
+<table border="1">
+    <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Action</th>
+    </tr>
+    <% if (addresses.length === 0) {%>
+        <tr>
+            <td colspan="3">Address data is empty</td>
+        </tr>
+    <% } %>
+    <% addresses.forEach((address, i) => { %>
+        <tr>
+            <td><%= i+1 %></td>
+            <td><%= address.name %></td>
+            <td>
+                <a href="/address/<%= address.name %>">details</a>
+            </td>
+        </tr>
+    <% }) %>
+</table>
+
