@@ -10,5 +10,11 @@
         "phone": "087787204325", 
         "email": "dzakwan@gmail.com", 
         "address": "Ulujami"
+    },
+    {
+        "name": "Doraemon",
+        "Phone": "087656767898",
+        "email": "doraemon@gmail.com",
+        "Address": "Jepang"
     }
 ]
